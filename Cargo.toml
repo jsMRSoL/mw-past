@@ -1,5 +1,5 @@
 [package]
-name = "merriam-webster-past"
+name = "mw-past"
 version = "0.1.0"
 authors = ["jsMRSoL <si_pitt@yahoo.com>"]
 edition = "2018"
