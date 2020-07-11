@@ -6,10 +6,11 @@ pub struct Verb {
     pub present: String,
     pub past_simple: String,
     pub past_part: String,
+    pub asterisked: String,
 }
 
 #[tokio::main]
-async fn lookup(s: &str) -> Verb {
+pub async fn lookup(s: &str) -> Verb {
     // split up phrasal verb. We want to look up the head, not the tail
     let head_and_tail = s.splitn(2, " ").collect::<Vec<_>>();
     let head = head_and_tail[0].to_string();
@@ -60,6 +61,7 @@ async fn lookup(s: &str) -> Verb {
                         present: s.to_string(),
                         past_simple,
                         past_part,
+                        asterisked: format!("*{}*{}", head, tail),
                     };
                 }
                 _ => default_verb(s, &head, &tail),
@@ -78,6 +80,7 @@ fn default_verb(s: &str, head: &str, tail: &str) -> Verb {
         present: s.to_string(),
         past_simple,
         past_part,
+        asterisked: format!("*{}*{}", head, tail),
     };
 }
 
