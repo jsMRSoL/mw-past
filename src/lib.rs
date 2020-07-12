@@ -47,7 +47,11 @@ pub async fn lookup(s: &str) -> Verb {
         Value::Null => default_verb(s, &head, &tail),
         _ => {
             // let inflections = v[0]["ins"].as_array().unwrap();
-            let inflections = v[0]["ins"].as_array();
+            let index = match &v[0]["fl"].as_str() {
+                Some("verb") => 0,
+                _ => 1,
+            };
+            let inflections = v[index]["ins"].as_array();
             match inflections {
                 Some(inflections) => {
                     let past = inflections[0]["if"].as_str().unwrap().replace("*", "");
@@ -91,27 +95,29 @@ mod tests {
     fn record_works() {
         let res: Verb = lookup("give");
         println!("Give:\n{:#?}", res);
-        let res2: Verb = lookup("give up");
-        println!("Give: up\n{:#?}", res2);
-        let res3: Verb = lookup("take");
-        println!("Take:\n{:#?}", res3);
-        let res4: Verb = lookup("take off");
-        println!("Take off:\n{:#?}", res4);
-        let res5: Verb = lookup("have");
-        println!("Have:\n{:#?}", res5);
-        let res6: Verb = lookup("have at");
-        println!("Have at:\n{:#?}", res6);
-        let res7: Verb = lookup("get");
-        println!("Get:\n{:#?}", res7);
-        let res8: Verb = lookup("get in");
-        println!("Get in:\n{:#?}", res8);
-        let res9: Verb = lookup("wug");
-        println!("Wug:\n{:#?}", res9);
-        let res10: Verb = lookup("wug up");
-        println!("Wug up:\n{:#?}", res10);
-        let res11: Verb = lookup("wuge");
-        println!("Wuge:\n{:#?}", res11);
-        let res12: Verb = lookup("wuge up");
-        println!("Wuge up:\n{:#?}", res12);
+        // let res2: Verb = lookup("give up");
+        // println!("Give: up\n{:#?}", res2);
+        // let res3: Verb = lookup("take");
+        // println!("Take:\n{:#?}", res3);
+        // let res4: Verb = lookup("take off");
+        // println!("Take off:\n{:#?}", res4);
+        // let res5: Verb = lookup("have");
+        // println!("Have:\n{:#?}", res5);
+        // let res6: Verb = lookup("have at");
+        // println!("Have at:\n{:#?}", res6);
+        // let res7: Verb = lookup("get");
+        // println!("Get:\n{:#?}", res7);
+        // let res8: Verb = lookup("get in");
+        // println!("Get in:\n{:#?}", res8);
+        // let res9: Verb = lookup("wug");
+        // println!("Wug:\n{:#?}", res9);
+        // let res10: Verb = lookup("wug up");
+        // println!("Wug up:\n{:#?}", res10);
+        // let res11: Verb = lookup("wuge");
+        // println!("Wuge:\n{:#?}", res11);
+        // let res12: Verb = lookup("wuge up");
+        // println!("Wuge up:\n{:#?}", res12);
+        let res13: Verb = lookup("plan");
+        println!("Plan:\n{:#?}", res13);
     }
 }
